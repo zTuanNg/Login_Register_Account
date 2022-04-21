@@ -41,7 +41,7 @@ public class AccountService {
         lst.add(acc);
         String s = gson.toJson(lst);
         try {
-            FileWriter fw = new FileWriter("account",false);
+            FileWriter fw = new FileWriter("account.json",false);
             fw.write(s);
             fw.close();
 
@@ -49,6 +49,31 @@ public class AccountService {
             e.printStackTrace();
         }
 
+    }
+
+    // get Account by username
+    public Account getAccount(List<Account>lst, String acc){
+        try{
+            return lst.stream().filter(a->a.getUserName().equals(acc)).findAny().get();
+        }
+        catch (Exception e){
+            return null;
+        }
+    }
+
+    // get Account by email
+    public Account getAccountByEmail(List<Account>lst, String email){
+        try{
+            return lst.stream().filter(a->a.getUserName().equals(email)).findAny().get();
+        }
+        catch (Exception e){
+            return null;
+        }
+    }
+
+    //  check password
+    public boolean checkPassword(Account acc, String password){
+        return acc.getPassword().equals(password);
     }
 
     // check exist account
@@ -105,8 +130,8 @@ public class AccountService {
     // check valid password
     public boolean checkValidPassword(String password){
 
-
-        return true;
+        String re = "^(?=.*[\\.\\,\\-\\_])(?=.*[A-Z]).{7,15}$";
+        return Pattern.matches(re,password);
 
     }
 
