@@ -48,7 +48,19 @@ public class AccountService {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
 
+    public void addDataToDB(List<Account>lst){
+        Gson gson = new Gson();
+        String s = gson.toJson(lst);
+        try {
+            FileWriter fw = new FileWriter("account.json",false);
+            fw.write(s);
+            fw.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     // get Account by username

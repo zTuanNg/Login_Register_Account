@@ -51,6 +51,7 @@ public class AccountController {
                             System.out.println("Enter new Username: ");
                             acc.setUserName(sc.nextLine());
                             System.out.println(acc);
+                            service.addDataToDB(db);
                         }
                         if (subChoice == 2) {
                             System.out.println("Enter new Email: ");
@@ -62,6 +63,8 @@ public class AccountController {
                             }
                             acc.setEmail(email);
                             System.out.println(acc);
+                            service.addDataToDB(db);
+
                         }
                         if (subChoice == 3) {
                             System.out.println("Enter new Password: ");
@@ -73,6 +76,8 @@ public class AccountController {
                             }
                             acc.setPassword(password);
                             System.out.println(acc);
+                            service.addDataToDB(db);
+
                         }
                         if (subChoice == 4) {
                             break;
@@ -83,6 +88,7 @@ public class AccountController {
                         }
 
                     } else {
+                        System.out.println("Incorrect password");
                         loginMenu();
                         System.out.println("Enter your choice: ");
                         int subChoice = Integer.parseInt(sc.nextLine());
@@ -96,8 +102,14 @@ public class AccountController {
                             String email = sc.nextLine();
                             if (service.checkExistEmail(db, email)) {
                                 System.out.println("Enter new password: ");
-                                acc.setPassword(sc.nextLine());
+                                password = sc.nextLine();
+                                while(!service.checkValidPassword(password)) {
+                                    System.out.println("Invalid password, Try again");
+                                    password = sc.nextLine();
+                                }
+                                acc.setPassword(password);
                                 System.out.println(acc);
+                                service.addDataToDB(db);
                                 switchToLogin = true;
                                 break;
                             } else {
@@ -158,7 +170,7 @@ public class AccountController {
 
         public static void loginMenu() {
             System.out.println("1 - Log in again");
-            System.out.println("2 - Forgot pass word");
+            System.out.println("2 - Forgot password");
         }
 
         public static void settingMenu() {
