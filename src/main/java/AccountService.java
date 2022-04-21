@@ -142,7 +142,7 @@ public class AccountService {
     // check valid password
     public boolean checkValidPassword(String password){
 
-        String re = "^(?=.*[\\.\\,\\-\\_])(?=.*[A-Z]).{7,15}$";
+        String re = "^(?=.*[\\.\\,\\-\\_\\;])(?=.*[A-Z]).{7,15}$";
         return Pattern.matches(re,password);
 
     }
